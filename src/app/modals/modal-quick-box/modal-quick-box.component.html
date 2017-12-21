@@ -1,0 +1,24 @@
+<app-modal-container>
+
+    <modal-header>
+        {{modalTitle}}
+    </modal-header>
+
+    <modal-body>
+        <div #textContainer></div>
+
+        <app-form-group *ngIf="inputType" [inputid]="'quickInput'" [title]="''" [description]="''">
+            <input [type]="inputType" [(ngModel)]="value" class="form-control">
+        </app-form-group>
+    </modal-body>
+
+    <modal-footer>
+        <button class="btn btn-primary" data-dismiss="modal" type="button">
+            Close
+        </button>
+        <button [class]="'btn ' + modalSubmitClass" data-dismiss="modal" type="button" (click)="submit()">
+            Accept
+        </button>
+    </modal-footer>
+
+</app-modal-container>

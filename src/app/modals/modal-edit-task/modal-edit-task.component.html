@@ -1,0 +1,67 @@
+<app-modal-container>
+    <modal-header>
+        {{isCreating ? 'Adding new task' : task.name === '' ? 'Editing task' : 'Editing ' + task.name}}
+    </modal-header>
+
+    <modal-body>
+
+        <form>
+            <h5>Task details</h5>
+
+            <app-form-group [inputid]="'taskName'" [title]="'Task name'">
+                <input type="text" class="form-control" name="taskName" id="taskName" [(ngModel)]="task.name">
+            </app-form-group>
+
+            <app-form-group [inputid]="'taskDescription'" [title]="'Task description'">
+                <textarea class="form-control" name="taskDescription" id="taskDescription" rows="3" [(ngModel)]="task.description"></textarea>
+            </app-form-group>
+
+            <app-form-group [inputid]="'taskCategory'" [title]="'Initial category'">
+                <select class="form-control" name="taskCategory" id="taskCategory" [(ngModel)]="task.category">
+                    <option *ngFor="let cat of categories; let first = first;" [value]="cat">{{cat}}</option>
+                </select>
+            </app-form-group>
+
+            <h5>People</h5>
+            <app-form-group [title]="'Assigned people'">
+                <ng-select [items]="projectPeople"
+                           [multiple]="true"
+                           (data)="peopleSelection($event)"
+                           placeholder="No people selected"></ng-select>
+            </app-form-group>
+
+            <h5>Subtasks</h5>
+            <app-form-group [title]="'Current subtasks'" *ngIf="task.subtasks.length > 0">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"
+                       *ngFor="let subtask of task.subtasks">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5>
+                                {{subtask.name}}
+                                <small class="text-muted">
+                                    {{subtask.dateLastUpdate | date:'short'}}
+                                </small>
+                            </h5>
+
+                            <small>{{subtask.description}}</small>
+                        </div>
+
+                        <p>Currently assigned to n tasks on m boards.</p>
+                    </a>
+                </div>
+            </app-form-group>
+
+            <app-form-group [inputid]="'taskSubTasks'" [title]="'Quick add'" description="Write the title for one subtask
+                per line. You can optionally add an description for each subtask by appending the description and
+                dividing both with a colon (:).">
+                <textarea class="form-control" name="taskSubTasks" id="taskSubTasks" rows="5" [(ngModel)]="subtasks"></textarea>
+            </app-form-group>
+        </form>
+
+    </modal-body>
+
+    <modal-footer>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abort</button>
+        <button type="button" class="btn btn-primary" (click)="complete()">Complete</button>
+    </modal-footer>
+</app-modal-container>

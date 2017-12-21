@@ -1,0 +1,24 @@
+<app-modal-container>
+    <modal-header>
+        {{isCreating ? 'Adding new person' : person.name === '' ? 'Editing person' : 'Editing ' + person.name}}
+    </modal-header>
+
+    <modal-body>
+
+        <form>
+            <app-form-group [inputid]="'person-name'" [title]="'Name:'">
+                <input type="text" class="form-control" id="person-name" [(ngModel)]="person.name" name="personName">
+            </app-form-group>
+
+            <app-form-group [inputid]="'person-email'" [title]="'E-Mail:'">
+                <input type="text" class="form-control" id="person-email" [(ngModel)]="person.email" name="personEmail">
+            </app-form-group>
+        </form>
+
+    </modal-body>
+
+    <modal-footer>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abort</button>
+        <button type="button" class="btn btn-primary" (click)="complete()">Complete</button>
+    </modal-footer>
+</app-modal-container>

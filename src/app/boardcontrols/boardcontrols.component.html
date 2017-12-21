@@ -1,0 +1,90 @@
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link" href="#" (click)="modal.openModalEditTask.emit({isCreating: true, boardId: 0, taskId: null})"
+           [class.text-white]="session.session.isDark">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add task
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#" (click)="modal.openModalAcitiviy.emit()" [class.text-white]="session.session.isDark">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i> Activity
+        </a>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+           [class.text-white]="session.session.isDark">
+            <i class="fa fa-eye" aria-hidden="true"></i> View
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" (click)="toggleSessionData('showTaskDescriptions')">
+                <i class="fa fa-eye{{sessionReflector.showTaskDescriptions ? '' : '-slash'}}" aria-hidden="true"></i>
+                {{sessionReflector.showTaskDescriptions ? 'Hide' : 'Show'}} task descriptions
+            </a>
+            <a class="dropdown-item" href="#" (click)="toggleSessionData('showSubtasks')">
+                <i class="fa fa-eye{{sessionReflector.showSubtasks ? '' : '-slash'}}" aria-hidden="true"></i>
+                {{sessionReflector.showSubtasks ? 'Hide' : 'Show'}} subtasks
+            </a>
+            <a class="dropdown-item" href="#" (click)="toggleSessionData('showAssignedPeople')">
+                <i class="fa fa-eye{{sessionReflector.showAssignedPeople ? '' : '-slash'}}" aria-hidden="true"></i>
+                {{sessionReflector.showAssignedPeople ? 'Hide' : 'Show'}} assigned people
+            </a>
+            <a class="dropdown-item" href="#" (click)="toggleSessionData('showTaskControls')">
+                <i class="fa fa-eye{{sessionReflector.showTaskControls ? '' : '-slash'}}" aria-hidden="true"></i>
+                {{sessionReflector.showTaskControls ? 'Hide' : 'Show'}} task controls
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" (click)="toggleSessionData('isDark')">
+                <i class="fa fa-{{!sessionReflector.isDark ? 'moon-o' : 'sun-o'}}" aria-hidden="true"></i>
+                {{sessionReflector.isDark ? 'Use light color scheme' : 'Use dark color scheme'}}
+            </a>
+            <a class="dropdown-item" href="#" (click)="modal.openModalTheme.emit()">
+                <i class="fa fa-television" aria-hidden="true"></i>
+                Change theme
+            </a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+           [class.text-white]="session.session.isDark">
+            <i class="fa fa-columns" aria-hidden="true"></i> Board
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Add category</a>
+            <a class="dropdown-item" href="#" (click)="modal.openModalCategoryManagement.emit(null)">Manage categories</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" *ngFor="let board of boards" (click)="changeBoard(board)">
+                <i class="fa fa-columns" aria-hidden="true"></i>
+                <i class="fa fa-chevron-right" aria-hidden="true" *ngIf="sessionReflector.currentBoard === board.id"></i>
+                {{board.name}}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" (click)="createNewBoard()">
+                <i class="fa fa-plus" aria-hidden="true"></i> Create new board
+            </a>
+            <a class="dropdown-item" href="#" (click)="removeCurrentBoard()">
+                <i class="fa fa-times" aria-hidden="true"></i> Delete current board
+            </a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+           [class.text-white]="session.session.isDark">
+            <i class="fa fa-file" aria-hidden="true"></i> Project
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Close Project</a>
+            <a class="dropdown-item" href="#">Save Project</a>
+            <a class="dropdown-item" href="#">Download backup file</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Open hosted project</a>
+            <a class="dropdown-item" href="#">Open backup file</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Project settings</a>
+            <a class="dropdown-item" href="#" (click)="modal.openModalManagePeople.emit(null)">Manage people</a>
+        </div>
+    </li>
+</ul>

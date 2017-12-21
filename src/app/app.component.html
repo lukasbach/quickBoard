@@ -1,3 +1,23 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container main" [class.bg-dark]="session.session.isDark">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-auto">
+            <app-boardcontrols></app-boardcontrols>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <app-sections></app-sections>
+        </div>
+    </div>
+</div>
+
+<app-modal-manage-people></app-modal-manage-people>
+<app-modal-edit-person></app-modal-edit-person>
+<app-modal-edit-task></app-modal-edit-task>
+<app-modal-view-task></app-modal-view-task>
+<app-modal-activity></app-modal-activity>
+<app-modal-category-management></app-modal-category-management>
+<app-modal-theme></app-modal-theme>
+<app-modal-quick-box></app-modal-quick-box>

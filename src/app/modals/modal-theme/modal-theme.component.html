@@ -1,0 +1,17 @@
+<app-modal-container>
+    <modal-header>Change theme</modal-header>
+
+    <modal-body>
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action"
+               *ngFor="let name of ['cyborg', 'flatly', 'lux', 'pulse', 'minty', 'materia',
+                'sandstone', 'simplex', 'sketchy', 'slate', 'yeti', 'united', 'superhero'];"
+                (click)="changeTheme('https://bootswatch.com/4/' + name + '/bootstrap.min.css')"
+               [class.active]="session.theme === ''">
+                {{name}}
+            </a>
+        </div>
+    </modal-body>
+
+    <modal-footer></modal-footer>
+</app-modal-container>

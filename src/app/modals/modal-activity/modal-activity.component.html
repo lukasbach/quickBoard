@@ -1,0 +1,59 @@
+<app-modal-container>
+    <modal-header>
+        {{header}}
+    </modal-header>
+
+    <modal-body>
+
+        <div class="card bg-secondary mb-3" *ngFor="let change of changes">
+            <div class="card-header">
+                <div class="d-flex w-100 justify-content-between">
+                    <span>{{change.stringChangeName}}</span>
+                    <span class="text-muted">{{change.date | date:'short'}}</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm align-items-center" *ngIf="!change.isCreation">
+                        <app-person-details *ngIf="change.modifiedObjectType === 'person'"
+                                            [person]="change.modifiedObjectBefore"
+                                            [readonly]="true"
+                                            [showControls]="false"></app-person-details>
+
+                        <app-task *ngIf="change.modifiedObjectType === 'task'"
+                                  [task]="change.modifiedObjectBefore"
+                                  [readonly]="true"
+                                  [showSubtasks]="true"
+                                  [showTaskControls]="false"
+                                  [showTaskDescriptions]="true"></app-task>
+                    </div>
+                    <div class="col-sm-2 align-items-center display-3" style="display: flex; text-align: center; justify-content: center">
+                        <span class="align-middle">
+                            <i class="fa" aria-hidden="true"
+                                [class.fa-chevron-right]="!change.isCreation"
+                                [class.fa-plus]="change.isCreation"></i>
+                        </span>
+                    </div>
+                    <div class="col-sm align-items-center">
+                        <app-person-details *ngIf="change.modifiedObjectType === 'person'"
+                            [person]="change.modifiedObjectAfter"
+                            [readonly]="true"
+                            [showControls]="false"></app-person-details>
+
+                        <app-task *ngIf="change.modifiedObjectType === 'task'"
+                            [task]="change.modifiedObjectAfter"
+                            [readonly]="true"
+                            [showSubtasks]="true"
+                            [showTaskControls]="false"
+                            [showTaskDescriptions]="true"></app-task>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </modal-body>
+
+    <modal-footer>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+    </modal-footer>
+</app-modal-container>

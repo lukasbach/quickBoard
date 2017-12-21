@@ -1,0 +1,8 @@
+.main {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100%;
+    padding: 2em 4em;
+    overflow: auto;
+}

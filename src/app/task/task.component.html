@@ -1,0 +1,60 @@
+<div class="card mb-3"
+     [class.bg-primary]="session.session.isDark"
+     [class.bg-dark]="!session.session.isDark"
+     [class.text-white]="true">
+    <div class="card-header">
+        {{task.name}}
+
+        <div class="float-right" [class.hide]="!showTaskControls" *ngIf="!readonly">
+            <a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Open this task"
+               (click)="openTask()">
+                <i class="fa fa-expand text-white" aria-hidden="true"></i>
+            </a>
+            <a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit this task"
+                (click)="editTask()">
+                <i class="fa fa-pencil text-white" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="card-body" *ngIf="showTaskDescriptions">
+        <p class="card-text">{{task.description}}</p>
+
+        <span class="badge">
+            <i class="fa fa-user" aria-hidden="true"></i> {{task.people.length}}
+        </span>
+        <span class="badge">
+            <i class="fa fa-bars" aria-hidden="true"></i> {{task.subtasks.length}}
+        </span>
+
+        <div class="float-right" [class.hide]="showSubtasks || task.subtasks.length == 0">
+            <span *ngFor="let st of task.subtasks">
+                <span class="badge badge-pill badge-success" *ngIf="st.done">&nbsp;</span>
+            </span>
+            <span *ngFor="let st of task.subtasks">
+                <span class="badge badge-pill badge-danger" *ngIf="!st.done">&nbsp;</span>
+            </span>
+        </div>
+    </div>
+
+    <ul class="list-group list-group-flush"
+        *ngIf="showSubtasks && task.subtasks.length > 0"
+        style="max-height:10em; overflow-y: auto">
+        <li class="list-group-item text-white" *ngFor="let subtask of task.subtasks"
+            [class.bg-danger]="!subtask.done"
+            [class.bg-success]="subtask.done">
+            <i class="fa fa-check" aria-hidden="true" *ngIf="subtask.done"></i>
+            <i class="fa fa-times" aria-hidden="true" *ngIf="!subtask.done"></i>
+
+            {{subtask.name}}
+
+            <div class="float-right" *ngIf="showTaskControls && !readonly">
+                <a href="#"
+                   (click)="toggleSubtask(subtask)">
+                    <i class="fa fa-check-circle" aria-hidden="true" *ngIf="!subtask.done"></i>
+                    <i class="fa fa-times-circle" aria-hidden="true" *ngIf="subtask.done"></i>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>

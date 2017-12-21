@@ -1,0 +1,3 @@
+<h2 [class.text-white]="session.session.isDark">{{sectionTitle}}</h2>
+<app-task *ngFor="let task of tasks" [task]="task" [showTaskDescriptions]="sessionReflector.showTaskDescriptions"
+    [showSubtasks]="sessionReflector.showSubtasks" [readonly]="false" [showTaskControls]="sessionReflector.showTaskControls"></app-task>

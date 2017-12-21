@@ -1,0 +1,45 @@
+<app-modal-container>
+    <modal-header>Board categories</modal-header>
+
+    <modal-body>
+        <div class="list-group">
+            <a href="#" class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let category of categories"
+                (click)="selectForEdit(category.name)">
+                {{category.name}}
+                <span class="badge badge-primary badge-pill">{{category.taskcount}}</span>
+            </a>
+        </div>
+
+        <br/>
+
+        <form *ngIf="selectedCategory || isCreating">
+            <h5>{{isCreating ? 'Create new category' : ('Modify category ' + selectedCategory)}}</h5>
+
+            <app-form-group [title]="'Categoryname'" [inputid]="'categoryname'">
+                <input type="text" class="form-control" id="categoryname" [(ngModel)]="newCategoryName" name="categoryname">
+            </app-form-group>
+
+            <div class="float-right">
+                <button type="button" class="btn btn-danger" (click)="removeCategory()" *ngIf="!isCreating">
+                    Remove
+                </button>
+                <button type="button" class="btn btn-danger" (click)="clearEntries()" *ngIf="!isCreating">
+                    Clear entries
+                </button>
+                <button type="button" class="btn btn-primary" (click)="submitEdit()">
+                    {{isCreating ? 'Create category' : 'Rename'}}
+                </button>
+            </div>
+        </form>
+    </modal-body>
+
+    <modal-footer>
+        <button type="button" class="btn btn-secondary" (click)="createCategory()">
+            Create new category
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+            Close
+        </button>
+    </modal-footer>
+</app-modal-container>

@@ -1,0 +1,61 @@
+<app-modal-container>
+    <modal-header>
+        {{task.name}}
+        <span class="badge badge-pill badge-info">{{task.category}}</span>
+    </modal-header>
+
+    <modal-body>
+
+        <h5>Summary</h5>
+        <p class="text-primary">{{task.description}}</p>
+        <p class="text-primary" *ngIf="task.subtasks.length == 0 || task.people.length == 0">
+            <span *ngIf="task.subtasks.length == 0 && task.people.length > 0">This task does not contain any subtasks.</span>
+            <span *ngIf="task.subtasks.length > 0 && task.people.length == 0">This task is not assigned to anyone.</span>
+            <span *ngIf="task.subtasks.length == 0 && task.people.length == 0">This task is not assigned to anyone and does not contain any subtasks.</span>
+        </p>
+        <p class="text-muted">Created on {{task.dateCreated | date:'short'}}, last updated on {{task.dateLastUpdate | date:'short'}}</p>
+
+        <div *ngIf="task.people.length > 0">
+            <h5>People</h5>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action" *ngFor="let person of task.people">
+                    {{person.name}} <small class="text-muted">{{person.email}}</small>
+                </a>
+            </div>
+            <p>&nbsp;</p>
+        </div>
+
+        <div *ngIf="task.subtasks.length > 0">
+            <h5>Subtasks</h5>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let subtask of task.subtasks">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{subtask.name}}</h5>
+                        <small class="text-muted">{{subtask.dateLastUpdate | date:'short'}}</small>
+                    </div>
+                    <p class="mb-1">{{subtask.description}}</p>
+                    <div class="d-flex w-100 justify-content-between">
+                        <small class="text-muted">Created on {{subtask.dateCreated | date:'short'}}</small>
+                        <span>
+                        <button type="button" class="btn btn-success btn-sm" *ngIf="!subtask.done" (click)="toggleSubtask(subtask)">Mark as done</button>
+                        <button type="button" class="btn btn-danger btn-sm" *ngIf="subtask.done" (click)="toggleSubtask(subtask)">Mark as undone</button>
+                    </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </modal-body>
+
+    <modal-footer>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="viewChanges()">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i> View changelog
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="clickEdit()">
+            <i class="fa fa-pencil" aria-hidden="true"></i> Edit task
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+            Close
+        </button>
+    </modal-footer>
+</app-modal-container>

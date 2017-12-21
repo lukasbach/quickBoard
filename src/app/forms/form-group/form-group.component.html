@@ -1,0 +1,11 @@
+<div class="form-group row">
+    <label [for]="formid" class="col-form-label" [class.col-sm-3]="title !== ''" [class.hide]="title === ''">{{title}}</label>
+
+    <div [class.col-sm-9]="title !== ''" [class.col-sm-12]="title === ''">
+        <ng-content></ng-content>
+
+        <small class="form-text text-muted" *ngIf="description">
+            {{description}}
+        </small>
+    </div>
+</div>
